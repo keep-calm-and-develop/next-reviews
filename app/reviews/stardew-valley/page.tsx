@@ -1,4 +1,5 @@
 import React from 'react';
+import Heading from '../../../components/Heading';
 
 interface StardewValleyPageProps {
 
@@ -7,7 +8,7 @@ interface StardewValleyPageProps {
 const StardewValleyPage: React.FC<StardewValleyPageProps> = ({}) => {
     return (
         <>
-            <h1>Stardew Valley</h1>
+            <Heading>Stardew Valley</Heading>
             <p>
                 This will be review for Stardew Valley
             </p>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Heading from '../../components/Heading';
 
 interface AboutPageProps {
 
@@ -7,7 +8,7 @@ interface AboutPageProps {
 const AboutPage: React.FC<AboutPageProps> = ({}) => {
     return (
         <>
-            <h1>About</h1>
+            <Heading>About</Heading>
             <p>
                 About review website
             </p>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React from 'react'
+import Heading from '../../components/Heading';
 
 interface ReviewsPageProps {
 
@@ -20,7 +21,7 @@ const ReviewsPage: React.FC<ReviewsPageProps> = ({ }) => {
                     </Link>
                 </li>
             </ul>
-            <h1>Reviews</h1>
+            <Heading>Reviews</Heading>
             <p>
                 Here we'll list all the reviews
             </p>

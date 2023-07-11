@@ -1,4 +1,5 @@
 import React from 'react';
+import Heading from '../../../components/Heading';
 
 interface HollowKnightPageProps {
 
@@ -7,7 +8,7 @@ interface HollowKnightPageProps {
 const HollowKnightPage: React.FC<HollowKnightPageProps> = ({}) => {
     return (
         <>
-            <h1>Hollow Knight</h1>
+            <Heading>Hollow Knight</Heading>
             <p>
                 This will be review for Hollow Knight
             </p>
