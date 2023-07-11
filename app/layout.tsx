@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react';
-import NavBar from '../components/NavBar';
+import NavBar from '@/components/NavBar';
 import './globals.css';
 
 const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
