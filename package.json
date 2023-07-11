@@ -1,0 +1,12 @@
+{
+    "name": "next-reviews",
+    "private": true,
+    "scripts": {
+        "dev": "npx next dev"
+    },
+    "dependencies": {
+        "next": "^13.4.9",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}
