@@ -1,10 +1,11 @@
 import type { PropsWithChildren } from 'react';
 import NavBar from '@/components/NavBar';
 import './globals.css';
+import { exo2, orbitron } from './fonts';
 
 const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
     return (
-        <html lang='en'>
+        <html lang='en' className={`${exo2.variable} ${orbitron.variable}`}>
             <body className='bg-orange-50 flex flex-col px-4 py-2 min-h-screen'>
                 <header>
                     <NavBar />
