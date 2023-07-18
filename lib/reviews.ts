@@ -13,13 +13,18 @@ export const getReview = async (slug) => {
 };
 
 export const getReviews = async () => {
-    const files = await readdir('./content/reviews');
-    const slugs = files.filter((file) => file.endsWith('.md'))
-        .map((file) => file.slice(0, -'.md'.length));
+    const slugs = await getSlugs();
     const reviews = [];
     for (const slug of slugs) {
         const review = await getReview(slug);
         reviews.push(review);
     }
     return reviews;
+};
+
+export const getSlugs = async () => {
+    const files = await readdir('./content/reviews');
+    const slugs = files.filter((file) => file.endsWith('.md'))
+        .map((file) => file.slice(0, -'.md'.length));
+    return slugs;
 };
