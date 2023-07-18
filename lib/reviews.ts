@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import matter from 'gray-matter';
 import { marked } from 'marked';
 
@@ -9,5 +9,17 @@ export const getReview = async (slug) => {
         headerIds: false,
         mangle: false,
     });
-    return { title, date, image, body };
+    return { slug, title, date, image, body };
+};
+
+export const getReviews = async () => {
+    const files = await readdir('./content/reviews');
+    const slugs = files.filter((file) => file.endsWith('.md'))
+        .map((file) => file.slice(0, -'.md'.length));
+    const reviews = [];
+    for (const slug of slugs) {
+        const review = await getReview(slug);
+        reviews.push(review);
+    }
+    return reviews;
 };
