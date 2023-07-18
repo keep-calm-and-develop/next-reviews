@@ -19,6 +19,7 @@ export const getReviews = async () => {
         const review = await getReview(slug);
         reviews.push(review);
     }
+    reviews.sort((a, b) => b.date.localeCompare(a.date));
     return reviews;
 };
 
@@ -27,4 +28,9 @@ export const getSlugs = async () => {
     const slugs = files.filter((file) => file.endsWith('.md'))
         .map((file) => file.slice(0, -'.md'.length));
     return slugs;
+};
+
+export const getFeaturedReview = async () => {
+    const reviews = await getReviews();
+    return reviews[0];
 };
