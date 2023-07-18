@@ -1,9 +1,12 @@
 import React from 'react';
 import Heading from '@/components/Heading';
+import { Metadata } from 'next';
 
-interface AboutPageProps {
+export const metadata: Metadata = {
+    title: 'About'
+};
 
-}
+interface AboutPageProps {}
 
 const AboutPage: React.FC<AboutPageProps> = ({}) => {
     return (

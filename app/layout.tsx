@@ -2,6 +2,15 @@ import type { PropsWithChildren } from 'react';
 import NavBar from '@/components/NavBar';
 import './globals.css';
 import { exo2, orbitron } from './fonts';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+    title: {
+        default: 'Indie Gamer',
+        template: '%s | Indie Gamer'
+    },
+    description: 'Only the best indie games, reviewed for you!',
+};
 
 const RootLayout: React.FC<PropsWithChildren> = ({ children }) => {
     return (

@@ -1,15 +1,27 @@
 import Heading from '@/components/Heading';
-import { getReview, getReviews, getSlugs } from '@/lib/reviews';
+import { getReview, getSlugs } from '@/lib/reviews';
+import { Metadata, ResolvingMetadata } from 'next';
 import React from 'react';
+
+type Props = {
+    params: { slug: string }
+}
 
 export async function generateStaticParams() {
     const slugs = await getSlugs();
     return slugs.map((slug) => ({ slug }));
 }
 
+export const generateMetadata = async ({ params: { slug }}: Props): Promise<Metadata> => {
+    const review = await getReview(slug);
+    return {
+        title: review.title,
+    };
+};
+
 interface ReviewPageProps { params: { slug: string } }
 
-const ReviewPage: React.FC<ReviewPageProps> = async ({ params: { slug }}) => {
+const ReviewPage: React.FC<ReviewPageProps> = async ({ params: { slug } }) => {
     const review = await getReview(slug);
     return (
         <>
