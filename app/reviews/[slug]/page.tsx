@@ -28,6 +28,9 @@ const ReviewPage: React.FC<ReviewPageProps> = async ({ params: { slug } }) => {
     return (
         <>
             <Heading>{review.title}</Heading>
+            <p className='font-semibold pb-3'>
+                {review.subtitle}
+            </p>
             <div className='flex gap-3 items-baseline'>
                 <p className='italic pb-2'>{review.date}</p>
                 <ShareLinkButton />
