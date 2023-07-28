@@ -1,7 +1,8 @@
 import Heading from '@/components/Heading';
 import ShareLinkButton from '@/components/ShareLinkButton';
 import { getReview, getSlugs } from '@/lib/reviews';
-import { Metadata, ResolvingMetadata } from 'next';
+import { Metadata } from 'next';
+import Image from 'next/image';
 import React from 'react';
 
 type Props = {
@@ -31,7 +32,7 @@ const ReviewPage: React.FC<ReviewPageProps> = async ({ params: { slug } }) => {
                 <p className='italic pb-2'>{review.date}</p>
                 <ShareLinkButton />
             </div>
-            <img
+            <Image
                 src={review.image}
                 alt=''
                 width='640'

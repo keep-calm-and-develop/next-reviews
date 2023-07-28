@@ -1,5 +1,6 @@
 import Heading from '@/components/Heading';
 import { getFeaturedReview } from '@/lib/reviews';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const HomePage: React.FC = async () => {
@@ -13,7 +14,7 @@ const HomePage: React.FC = async () => {
             {featureReview && (
                 <div className='border rounded shadow bg-white hover:shadow-xl w-80 sm:w-full'>
                     <Link className='flex flex-col sm:flex-row' href={`/reviews/${featureReview.slug}`}>
-                        <img
+                        <Image
                             src={featureReview.image}
                             alt=''
                             width='320'

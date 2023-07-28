@@ -3,6 +3,7 @@ import React from 'react'
 import Heading from '@/components/Heading';
 import { getReviews } from '@/lib/reviews';
 import { Metadata } from 'next';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
     title: 'Reviews'
@@ -19,11 +20,11 @@ const ReviewsPage: React.FC<ReviewsPageProps> = async ({ }) => {
                 {reviews.map((review) => (
                     <li key={review.slug} className='border w-80 rounded shadow bg-white hover:shadow-xl'>
                         <Link href={`/reviews/${review.slug}`}>
-                            <img
+                            <Image
                                 src={review.image}
                                 alt=''
-                                width='320'
-                                height='180'
+                                width={320}
+                                height={180}
                                 className='rounded-t'
                             />
                             <h2 className='font-semibold font-orbitron py-1 text-center'>
