@@ -1,36 +1,63 @@
-import { readFile, readdir } from 'node:fs/promises';
-import matter from 'gray-matter';
 import { marked } from 'marked';
+import qs from 'qs';
+
+const CMS_URL = 'http://localhost:1337';
 
 export const getReview = async (slug) => {
-    const text = await readFile(`./content/reviews/${slug}.md`, 'utf8');
-    const { content, data: { title, date, image } } = matter(text);
-    const body = marked(content, {
-        headerIds: false,
-        mangle: false,
+    const { data: [item] } = await fetchReviews({
+        filters: { slug: { $eq: slug }},
+        fields: ['slug', 'title', 'subtitle', 'publishedAt', 'body'],
+        populate: { image: { fields: ['url'] }},
+        pagination: { pageSize: 1, withCount: false },
     });
-    return { slug, title, date, image, body };
+    const { attributes } = item;
+    return {
+        ...toReview(item),
+        body: marked(attributes.body, { headerIds: false, mangle: false }),
+    };
 };
 
 export const getReviews = async () => {
-    const slugs = await getSlugs();
-    const reviews = [];
-    for (const slug of slugs) {
-        const review = await getReview(slug);
-        reviews.push(review);
-    }
-    reviews.sort((a, b) => b.date.localeCompare(a.date));
-    return reviews;
+    const { data } = await fetchReviews({
+        fields: ['slug', 'title', 'subtitle', 'publishedAt'],
+        populate: { image: { fields: ['url'] }},
+        pagination: { pageSize: 6 },
+        sort: ['publishedAt:desc'],
+    });
+    return data.map(toReview);
 };
 
 export const getSlugs = async () => {
-    const files = await readdir('./content/reviews');
-    const slugs = files.filter((file) => file.endsWith('.md'))
-        .map((file) => file.slice(0, -'.md'.length));
-    return slugs;
+    const { data } = await fetchReviews({
+        fields: ['slug'],
+        pagination: { pageSize: 100 },
+        sort: ['publishedAt:desc'],
+    });
+    return data.map((item) => item.attributes.slug);
 };
 
 export const getFeaturedReview = async () => {
     const reviews = await getReviews();
     return reviews[0];
+};
+
+const toReview = (item) => {
+    const { attributes } = item;
+    return {
+        slug: attributes.slug,
+        title: attributes.title,
+        date: attributes.publishedAt.slice(0, 'yyyy-mm-dd'.length),
+        image: `${CMS_URL}${attributes.image.data.attributes.url}`,
+    };
+};
+
+const fetchReviews = async (parameters) => {
+    const url = `${CMS_URL}/api/reviews?`
+    + qs.stringify(parameters, { encodeValuesOnly: true });
+
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`CMS returned ${response.status} for ${url}`);
+    }
+    return await response.json();
 };
