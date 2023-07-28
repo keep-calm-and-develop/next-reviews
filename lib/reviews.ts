@@ -17,11 +17,11 @@ export const getReview = async (slug) => {
     };
 };
 
-export const getReviews = async () => {
+export const getReviews = async (pageSize = 6) => {
     const { data } = await fetchReviews({
         fields: ['slug', 'title', 'subtitle', 'publishedAt'],
         populate: { image: { fields: ['url'] }},
-        pagination: { pageSize: 6 },
+        pagination: { pageSize },
         sort: ['publishedAt:desc'],
     });
     return data.map(toReview);
@@ -34,11 +34,6 @@ export const getSlugs = async () => {
         sort: ['publishedAt:desc'],
     });
     return data.map((item) => item.attributes.slug);
-};
-
-export const getFeaturedReview = async () => {
-    const reviews = await getReviews();
-    return reviews[0];
 };
 
 const toReview = (item) => {
