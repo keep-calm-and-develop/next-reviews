@@ -34,6 +34,7 @@ const ReviewPage: React.FC<ReviewPageProps> = async ({ params: { slug } }) => {
             </div>
             <Image
                 src={review.image}
+                priority
                 alt=''
                 width='640'
                 height='360'

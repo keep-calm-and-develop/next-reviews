@@ -15,6 +15,7 @@ const HomePage: React.FC = async () => {
                 <div className='border rounded shadow bg-white hover:shadow-xl w-80 sm:w-full'>
                     <Link className='flex flex-col sm:flex-row' href={`/reviews/${featureReview.slug}`}>
                         <Image
+                            priority
                             src={featureReview.image}
                             alt=''
                             width='320'
