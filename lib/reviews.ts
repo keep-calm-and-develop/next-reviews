@@ -4,12 +4,16 @@ import qs from 'qs';
 const CMS_URL = 'http://localhost:1337';
 
 export const getReview = async (slug) => {
-    const { data: [item] } = await fetchReviews({
+    const { data } = await fetchReviews({
         filters: { slug: { $eq: slug }},
         fields: ['slug', 'title', 'subtitle', 'publishedAt', 'body'],
         populate: { image: { fields: ['url'] }},
         pagination: { pageSize: 1, withCount: false },
     });
+    if (data.length === 0) {
+        return null;
+    }
+    const item = data[0];
     const { attributes } = item;
     return {
         ...toReview(item),

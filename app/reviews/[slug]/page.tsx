@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import Heading from '@/components/Heading';
 import ShareLinkButton from '@/components/ShareLinkButton';
 import { getReview, getSlugs } from '@/lib/reviews';
@@ -16,6 +17,9 @@ export async function generateStaticParams() {
 
 export const generateMetadata = async ({ params: { slug }}: Props): Promise<Metadata> => {
     const review = await getReview(slug);
+    if (!review) {
+        notFound();
+    }
     return {
         title: review.title,
     };
@@ -25,6 +29,9 @@ interface ReviewPageProps { params: { slug: string } }
 
 const ReviewPage: React.FC<ReviewPageProps> = async ({ params: { slug } }) => {
     const review = await getReview(slug);
+    if (!review) {
+        notFound();
+    }
     return (
         <>
             <Heading>{review.title}</Heading>
