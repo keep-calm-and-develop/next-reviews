@@ -3,6 +3,8 @@ import qs from 'qs';
 
 const CMS_URL = 'http://localhost:1337';
 
+export const CACHE_TAG_REVIEWS = 'reviews';
+
 export const getReview = async (slug) => {
     const { data } = await fetchReviews({
         filters: { slug: { $eq: slug }},
@@ -55,7 +57,11 @@ const fetchReviews = async (parameters) => {
     const url = `${CMS_URL}/api/reviews?`
     + qs.stringify(parameters, { encodeValuesOnly: true });
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+        next: {
+            tags: [CACHE_TAG_REVIEWS],
+        }
+    });
     if (!response.ok) {
         throw new Error(`CMS returned ${response.status} for ${url}`);
     }
