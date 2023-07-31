@@ -23,14 +23,17 @@ export const getReview = async (slug) => {
     };
 };
 
-export const getReviews = async (pageSize = 6) => {
-    const { data } = await fetchReviews({
+export const getReviews = async (pageSize = 6, page = 1) => {
+    const { data,meta } = await fetchReviews({
         fields: ['slug', 'title', 'subtitle', 'publishedAt'],
         populate: { image: { fields: ['url'] }},
-        pagination: { pageSize },
+        pagination: { pageSize, page },
         sort: ['publishedAt:desc'],
     });
-    return data.map(toReview);
+    return { 
+        pageCount: meta.pagination.pageCount,
+        reviews: data.map(toReview),
+    };
 };
 
 export const getSlugs = async () => {

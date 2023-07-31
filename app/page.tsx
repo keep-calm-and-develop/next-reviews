@@ -3,8 +3,10 @@ import { getReviews } from '@/lib/reviews';
 import Image from 'next/image';
 import Link from 'next/link';
 
+// TODO: Fully accessible and SEO friendly pagination
+
 const HomePage: React.FC = async () => {
-    const reviews = await getReviews(3);
+    const { reviews } = await getReviews(3);
     return (
         <>
             <Heading>Indie Gamer</Heading>
